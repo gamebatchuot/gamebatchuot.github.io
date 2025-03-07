@@ -1,0 +1,1625 @@
+/* Thiết lập cơ bản */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    background: linear-gradient(to bottom, #b3e5fc, #ffffff);
+    height: 100vh;
+    font-family: 'Arial', sans-serif;
+    overflow: hidden;
+    cursor: pointer;
+}
+
+/* Layout chính - chia làm 2 phần: sidebar và gameplay area */
+.game-container {
+    width: 100%;
+    height: 100vh;
+    display: flex;
+    position: relative;
+}
+
+/* Sidebar chứa các chức năng */
+.game-sidebar {
+    width: 280px;
+    height: 100%;
+    background: #2c3e50;
+    color: #ecf0f1;
+    display: flex;
+    flex-direction: column;
+    padding: 20px;
+    box-shadow: 3px 0 15px rgba(0, 0, 0, 0.2);
+    z-index: 50;
+}
+
+.game-logo {
+    text-align: center;
+    margin-bottom: 20px;
+    padding-bottom: 15px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.game-logo h3 {
+    font-size: 22px;
+    color: #4fc3f7;
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+/* Panel chọn chế độ chơi */
+.game-modes-panel {
+    margin-bottom: 25px;
+}
+
+.game-modes-panel h4 {
+    margin-bottom: 15px;
+    color: #bdc3c7;
+    font-size: 18px;
+}
+
+.mode-buttons {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.mode-btn {
+    display: flex;
+    align-items: center;
+    background: rgba(44, 62, 80, 0.7);
+    border: 1px solid #34495e;
+    border-radius: 8px;
+    padding: 10px 15px;
+    color: #ecf0f1;
+    font-size: 15px;
+    cursor: pointer;
+    transition: all 0.3s;
+}
+
+.mode-btn:hover, .mode-btn.selected {
+    background: #3498db;
+    border-color: #2980b9;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.mode-btn i {
+    font-size: 18px;
+    margin-right: 10px;
+    width: 25px;
+    text-align: center;
+}
+
+/* Các nút chức năng */
+.function-buttons {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin-bottom: 25px;
+}
+
+.function-btn {
+    display: flex;
+    align-items: center;
+    background: rgba(52, 152, 219, 0.2);
+    border: 1px solid rgba(52, 152, 219, 0.4);
+    border-radius: 8px;
+    padding: 10px 15px;
+    color: #ecf0f1;
+    font-size: 15px;
+    cursor: pointer;
+    transition: all 0.3s;
+}
+
+.function-btn:hover {
+    background: rgba(52, 152, 219, 0.4);
+    border-color: rgba(52, 152, 219, 0.6);
+    transform: translateY(-2px);
+}
+
+.function-btn i {
+    font-size: 18px;
+    margin-right: 10px;
+    width: 25px;
+    text-align: center;
+}
+
+/* Thống kê game */
+.game-stats-panel {
+    margin-top: auto;
+    padding-top: 15px;
+    border-top: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.game-stats-detail {
+    background: rgba(44, 62, 80, 0.7);
+    border-radius: 8px;
+    padding: 10px 15px;
+    display: flex;
+    align-items: center;
+    font-size: 16px;
+}
+
+.game-stats-detail i {
+    margin-right: 10px;
+    color: #3498db;
+}
+
+/* Khu vực chơi game */
+.gameplay-area {
+    flex: 1;
+    position: relative;
+    background: linear-gradient(135deg, #e0f7fa, #ffffff);
+    overflow: hidden;
+}
+
+/* Popup hướng dẫn */
+.popup-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.7);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+}
+
+.popup-content {
+    background: white;
+    border-radius: 10px;
+    width: 90%;
+    max-width: 700px;
+    max-height: 90vh;
+    overflow-y: auto;
+    box-shadow: 0 5px 30px rgba(0, 0, 0, 0.3);
+}
+
+.popup-header {
+    background: #3498db;
+    color: white;
+    padding: 15px 20px;
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.popup-header h2 {
+    margin: 0;
+    font-size: 22px;
+}
+
+.close-btn {
+    background: none;
+    border: none;
+    color: white;
+    font-size: 20px;
+    cursor: pointer;
+    height: 30px;
+    width: 30px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 50%;
+    transition: background 0.3s;
+}
+
+.close-btn:hover {
+    background: rgba(255, 255, 255, 0.2);
+}
+
+.popup-body {
+    padding: 20px;
+}
+
+.instructions-list {
+    list-style-type: none;
+    margin-bottom: 20px;
+}
+
+.instructions-list li {
+    padding: 10px 5px;
+    border-bottom: 1px solid #f0f0f0;
+    font-size: 16px;
+    display: flex;
+    align-items: center;
+}
+
+.instructions-list li:last-child {
+    border-bottom: none;
+}
+
+.modes-info {
+    background: #f5f5f5;
+    border-radius: 8px;
+    padding: 15px;
+}
+
+.modes-info h3 {
+    color: #2c3e50;
+    margin-bottom: 15px;
+    font-size: 18px;
+}
+
+.mode-info-item {
+    margin-bottom: 12px;
+    background: white;
+    border-radius: 8px;
+    padding: 10px 15px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.mode-info-item h4 {
+    color: #3498db;
+    margin-bottom: 5px;
+    font-size: 16px;
+}
+
+.mode-info-item p {
+    color: #7f8c8d;
+    font-size: 14px;
+}
+
+/* Nhân vật */
+.character {
+    position: absolute;
+    font-size: 50px;
+    width: 50px;
+    height: 50px;
+    user-select: none;
+    transition: transform 0.2s cubic-bezier(0.34, 1.56, 0.64, 1), left 0.4s ease-out, top 0.4s ease-out;
+    cursor: default;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 10;
+    will-change: transform, left, top;
+    transform-origin: center;
+    filter: drop-shadow(0 2px 5px rgba(0, 0, 0, 0.3));
+}
+
+/* Hiệu ứng nhân vật khi rảnh rỗi - nảy nhẹ liên tục */
+@keyframes idleCharacter {
+    0%, 100% { transform: scale(1) rotate(0deg); }
+    25% { transform: scale(1.08) rotate(-3deg); }
+    50% { transform: scale(0.95) rotate(0deg); }
+    75% { transform: scale(1.05) rotate(3deg); }
+}
+
+.character.idle {
+    animation: idleCharacter 2s infinite;
+}
+
+/* Hiệu ứng khiêu khích khi người chơi không bắt được trong thời gian dài */
+@keyframes tauntCharacter {
+    0% { transform: scale(1) rotate(0deg); }
+    10% { transform: scale(1.1) rotate(-5deg); }
+    20% { transform: scale(1.15) rotate(5deg); }
+    30% { transform: scale(1.1) rotate(-5deg); }
+    40% { transform: scale(1.15) rotate(5deg); }
+    50% { transform: scale(0.9) rotate(0deg); }
+    60% { transform: scale(1.2) rotate(10deg); }
+    70% { transform: scale(1.05) rotate(-10deg); }
+    80% { transform: scale(1.2) rotate(10deg); }
+    90% { transform: scale(1.05) rotate(-10deg); }
+    100% { transform: scale(1) rotate(0deg); }
+}
+
+.character.taunt {
+    animation: tauntCharacter 2s;
+    z-index: 50;
+}
+
+/* Hiệu ứng nhân vật khi di chuyển - xoay và phóng đại */
+@keyframes moveEffect {
+    0% { transform: scale(0.8) rotate(-5deg); }
+    50% { transform: scale(1.2) rotate(5deg); }
+    100% { transform: scale(1) rotate(0deg); }
+}
+
+.character.moving {
+    animation: moveEffect 0.4s;
+}
+
+/* Hiệu ứng nhân vật khi gần chuột - rung rẩy hoảng sợ */
+@keyframes panicShake {
+    0%, 100% { transform: scale(1) translate(0, 0); }
+    10% { transform: scale(1.1) translate(-2px, -2px); }
+    20% { transform: scale(1.05) translate(2px, 2px); }
+    30% { transform: scale(1.1) translate(2px, -2px); }
+    40% { transform: scale(1.05) translate(-2px, 2px); }
+    50% { transform: scale(1.1) translate(-1px, -1px); }
+    60% { transform: scale(1.05) translate(1px, 1px); }
+    70% { transform: scale(1.1) translate(1px, -1px); }
+    80% { transform: scale(1.05) translate(-1px, 1px); }
+    90% { transform: scale(1.1) translate(0, 0); }
+}
+
+.character.panic {
+    animation: panicShake 0.5s;
+}
+
+/* Hiệu ứng thở - nhân vật thở liên tục khi rảnh rỗi */
+@keyframes breathe {
+    0%, 100% { transform: scale(1); }
+    50% { transform: scale(1.05); }
+}
+
+.character:not(.moving):not(.taunt):not(.panic):not(.caught) {
+    animation: breathe 2s infinite ease-in-out;
+}
+
+/* Hiệu ứng chế độ chơi */
+/* Tooltip hiệu ứng khi hover vào nút chế độ */
+.mode-btn::after {
+    content: attr(data-mode);
+    position: absolute;
+    background: rgba(44, 62, 80, 0.9);
+    border-radius: 4px;
+    padding: 5px 10px;
+    color: white;
+    font-size: 12px;
+    opacity: 0;
+    transform: translateX(20px);
+    pointer-events: none;
+    transition: all 0.3s;
+    z-index: 100;
+}
+
+.mode-btn:hover::after {
+    opacity: 1;
+    transform: translateX(10px);
+}
+
+/* Hiệu ứng chế độ normal */
+#mode-normal:hover::before {
+    content: "👆";
+    position: absolute;
+    font-size: 24px;
+    animation: normalModePreview 1s infinite;
+    z-index: 5;
+    left: 245px;
+}
+
+@keyframes normalModePreview {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-10px); }
+}
+
+/* Hiệu ứng chế độ fast */
+#mode-fast:hover::before {
+    content: "⚡";
+    position: absolute;
+    font-size: 24px;
+    animation: fastModePreview 0.5s infinite;
+    z-index: 5;
+    left: 245px;
+}
+
+@keyframes fastModePreview {
+    0% { transform: translateX(0); }
+    25% { transform: translateX(5px); }
+    50% { transform: translateX(-5px); }
+    75% { transform: translateX(5px); }
+    100% { transform: translateX(0); }
+}
+
+/* Hiệu ứng chế độ crazy */
+#mode-crazy:hover::before {
+    content: "🤪";
+    position: absolute;
+    font-size: 24px;
+    animation: crazyModePreview 0.8s infinite;
+    z-index: 5;
+    left: 245px;
+}
+
+@keyframes crazyModePreview {
+    0% { transform: rotate(0deg) scale(1); }
+    25% { transform: rotate(90deg) scale(1.2); }
+    50% { transform: rotate(180deg) scale(0.8); }
+    75% { transform: rotate(270deg) scale(1.2); }
+    100% { transform: rotate(360deg) scale(1); }
+}
+
+/* Hiệu ứng chế độ multi */
+#mode-multi:hover::before {
+    content: "👯";
+    position: absolute;
+    font-size: 24px;
+    animation: multiModePreview 1s infinite;
+    z-index: 5;
+    left: 245px;
+}
+
+@keyframes multiModePreview {
+    0% { transform: scale(1); content: "👤"; }
+    33% { transform: scale(1.1); content: "👥"; }
+    66% { transform: scale(1.2); content: "👪"; }
+    100% { transform: scale(1); content: "👤"; }
+}
+
+/* Menu game */
+.game-menu {
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(135deg, #2196F3, #64B5F6, #BBDEFB);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+}
+
+.menu-container {
+    background-color: rgba(255, 255, 255, 0.9);
+    border-radius: 15px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+    padding: 30px 40px;
+    text-align: center;
+    max-width: 500px;
+    width: 90%;
+}
+
+.game-title {
+    color: #2196F3;
+    font-size: 2.5rem;
+    margin-bottom: 30px;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.menu-options {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.menu-btn {
+    background-color: #2196F3;
+    color: white;
+    border: none;
+    border-radius: 50px;
+    padding: 12px 0;
+    font-size: 1.2rem;
+    cursor: pointer;
+    transition: all 0.3s;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.menu-btn:hover {
+    background-color: #1976D2;
+    transform: translateY(-2px);
+    box-shadow: 0 6px 8px rgba(0, 0, 0, 0.15);
+}
+
+.back-btn {
+    margin-top: 20px;
+    background-color: #9E9E9E;
+}
+
+.back-btn:hover {
+    background-color: #757575;
+}
+
+/* Hướng dẫn chơi */
+.instructions-screen {
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(135deg, #2196F3, #64B5F6, #BBDEFB);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+}
+
+.instructions-container {
+    background-color: rgba(255, 255, 255, 0.9);
+    border-radius: 15px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+    padding: 30px;
+    max-width: 600px;
+    width: 90%;
+}
+
+.instructions-container h2 {
+    color: #2196F3;
+    font-size: 2rem;
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+.instructions-list {
+    list-style-type: none;
+    margin-bottom: 20px;
+}
+
+.instructions-list li {
+    padding: 10px 5px;
+    border-bottom: 1px solid #f0f0f0;
+    font-size: 1.1rem;
+    display: flex;
+    align-items: center;
+}
+
+.instructions-list li:last-child {
+    border-bottom: none;
+}
+
+/* Chế độ chơi */
+.modes-screen {
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(135deg, #2196F3, #64B5F6, #BBDEFB);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+}
+
+.modes-container {
+    background-color: rgba(255, 255, 255, 0.9);
+    border-radius: 15px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+    padding: 30px;
+    max-width: 700px;
+    width: 90%;
+}
+
+.modes-container h2 {
+    color: #2196F3;
+    font-size: 2rem;
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+.mode-options {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 15px;
+    margin-bottom: 20px;
+}
+
+.mode-option {
+    background-color: #f5f5f5;
+    border-radius: 10px;
+    padding: 15px;
+    cursor: pointer;
+    transition: all 0.3s;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.mode-option:hover {
+    background-color: #e0f7fa;
+    transform: translateY(-5px);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+}
+
+.mode-option.selected {
+    background-color: #b3e5fc;
+    border: 2px solid #2196F3;
+}
+
+.mode-option h3 {
+    color: #2196F3;
+    margin-bottom: 10px;
+}
+
+.mode-option p {
+    color: #757575;
+    font-size: 0.9rem;
+}
+
+/* Điều khiển trong game */
+.game-controls {
+    position: absolute;
+    top: 20px;
+    left: 20px;
+    display: flex;
+    gap: 10px;
+    z-index: 30;
+}
+
+.audio-controls {
+    position: relative;
+}
+
+.menu-controls {
+    position: relative;
+}
+
+.control-btn {
+    background-color: rgba(255, 255, 255, 0.8);
+    border: none;
+    border-radius: 5px;
+    padding: 8px 12px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: all 0.3s;
+}
+
+.control-btn:hover {
+    background-color: rgba(255, 255, 255, 0.9);
+    transform: scale(1.05);
+}
+
+/* Hiệu ứng rung khi chuột lại gần */
+.character.shake {
+    animation: shake 0.5s infinite;
+}
+
+/* Hiệu ứng nhảy khi trốn */
+.character.jump {
+    animation: jump 0.5s;
+}
+
+/* Hiệu ứng khi nhân vật bị bắt */
+@keyframes caughtAnimation {
+    0% { transform: scale(1) rotate(0deg); }
+    30% { transform: scale(2) rotate(10deg); }
+    100% { transform: scale(0) rotate(-45deg); opacity: 0; }
+}
+
+.character.caught {
+    animation: caughtAnimation 1s forwards;
+    z-index: 100;
+    filter: drop-shadow(0 0 15px rgba(255, 255, 255, 0.8));
+}
+
+/* Hộp thoại */
+.dialog-box {
+    position: absolute;
+    background-color: white;
+    border: 2px solid #333;
+    border-radius: 10px;
+    padding: 10px 15px;
+    max-width: 250px;
+    font-size: 14px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    z-index: 20;
+    opacity: 0;
+    transform: translateY(10px);
+    text-align: center;
+}
+
+.dialog-box.show {
+    animation: showDialog 2.5s ease forwards;
+}
+
+/* Nút chơi lại */
+.restart-btn {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    padding: 12px 25px;
+    background-color: #2ecc71;
+    color: white;
+    border: none;
+    border-radius: 50px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: all 0.3s;
+    z-index: 30;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+}
+
+.restart-btn:hover {
+    background-color: #27ae60;
+    transform: translate(-50%, -50%) scale(1.05);
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.3);
+}
+
+/* Thống kê game */
+.game-stats {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    background-color: rgba(255, 255, 255, 0.8);
+    padding: 8px 12px;
+    border-radius: 5px;
+    font-size: 14px;
+}
+
+/* Điều khiển âm thanh */
+.audio-btn {
+    background-color: rgba(255, 255, 255, 0.8);
+    border: none;
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    font-size: 20px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.3s;
+}
+
+.audio-btn:hover {
+    background-color: rgba(255, 255, 255, 0.9);
+    transform: scale(1.1);
+}
+
+.audio-btn.muted {
+    background-color: rgba(255, 0, 0, 0.1);
+    box-shadow: 0 0 8px rgba(255, 0, 0, 0.3);
+}
+
+/* Hiệu ứng khi tắt âm thanh */
+.muted-audio .character {
+    filter: grayscale(0.2);
+}
+
+.muted-audio .audio-btn.muted {
+    animation: pulse 1.5s infinite;
+}
+
+@keyframes pulse {
+    0% { box-shadow: 0 0 0 0 rgba(255, 0, 0, 0.2); }
+    70% { box-shadow: 0 0 0 8px rgba(255, 0, 0, 0); }
+    100% { box-shadow: 0 0 0 0 rgba(255, 0, 0, 0); }
+}
+
+/* Hiển thị meme */
+.meme-container {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%) scale(0);
+    background-color: rgba(255, 255, 255, 0.9);
+    border: 3px solid #333;
+    border-radius: 10px;
+    padding: 10px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+    z-index: 40;
+    transition: all 0.3s;
+    max-width: 80%;
+    opacity: 0;
+}
+
+.meme-container.show {
+    animation: showMeme 2.5s ease forwards;
+}
+
+#meme-image {
+    max-width: 100%;
+    max-height: 70vh;
+    border-radius: 5px;
+}
+
+/* Small memes */
+.small-meme {
+    position: absolute;
+    background-color: rgba(255, 255, 255, 0.9);
+    border: 2px solid #333;
+    border-radius: 8px;
+    padding: 5px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+    z-index: 35;
+    width: 150px;
+    opacity: 0;
+    transform: scale(0);
+    transition: all 0.3s;
+}
+
+.small-meme img {
+    width: 100%;
+    height: auto;
+    border-radius: 5px;
+}
+
+/* Fullscreen overlay */
+.fullscreen-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.8);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 100;
+    opacity: 0;
+    transition: opacity 0.5s;
+}
+
+.fullscreen-meme {
+    background-color: white;
+    border-radius: 10px;
+    padding: 20px;
+    box-shadow: 0 0 30px rgba(255, 255, 255, 0.2);
+    text-align: center;
+    max-width: 90%;
+    max-height: 90%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.fullscreen-meme img {
+    max-width: 100%;
+    max-height: 70vh;
+    border-radius: 5px;
+    margin-bottom: 20px;
+}
+
+.fullscreen-message {
+    font-size: 18px;
+    color: #333;
+    margin-top: 10px;
+    background-color: #f8f8f8;
+    padding: 10px 15px;
+    border-radius: 5px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+/* Hidden elements */
+.hidden {
+    display: none !important;
+}
+
+/* Animations */
+@keyframes shake {
+    0%, 100% { transform: rotate(0deg); }
+    25% { transform: rotate(5deg); }
+    50% { transform: rotate(0deg); }
+    75% { transform: rotate(-5deg); }
+}
+
+@keyframes jump {
+    0% { transform: translateY(0) scale(1); }
+    50% { transform: translateY(-20px) scale(1.2); }
+    100% { transform: translateY(0) scale(1); }
+}
+
+@keyframes fadeOut {
+    0% { opacity: 1; transform: rotate(0deg) scale(1); }
+    50% { opacity: 0.5; transform: rotate(180deg) scale(0.5); }
+    100% { opacity: 0; transform: rotate(360deg) scale(0); }
+}
+
+@keyframes showDialog {
+    0% { opacity: 0; transform: translateY(10px); }
+    10% { opacity: 1; transform: translateY(0); }
+    85% { opacity: 1; transform: translateY(0); }
+    100% { opacity: 0; transform: translateY(-10px); }
+}
+
+@keyframes showMeme {
+    0% { opacity: 0; transform: translate(-50%, -50%) scale(0); }
+    10% { opacity: 1; transform: translate(-50%, -50%) scale(1); }
+    80% { opacity: 1; transform: translate(-50%, -50%) scale(1); }
+    100% { opacity: 0; transform: translate(-50%, -50%) scale(0); }
+}
+
+/* Hiệu ứng nhấp nháy màn hình */
+@keyframes screen-flash {
+    0% { background-color: rgba(255, 255, 255, 0); }
+    50% { background-color: rgba(255, 255, 255, 0.7); }
+    100% { background-color: rgba(255, 255, 255, 0); }
+}
+
+.screen-flash {
+    animation: screen-flash 0.8s ease-out;
+}
+
+/* Nhân vật giả */
+.fake-character {
+    opacity: 0.9;
+    z-index: 9; /* Thấp hơn nhân vật thật */
+    filter: blur(0.5px);
+}
+
+.fake-character.disappear {
+    animation: disappear 0.5s forwards;
+}
+
+@keyframes disappear {
+    0% { opacity: 0.9; transform: scale(1); }
+    100% { opacity: 0; transform: scale(0.5) rotate(180deg); }
+}
+
+/* Hộp thoại troll bổ sung */
+.extra-dialog {
+    z-index: 25;
+    opacity: 0;
+    transform: scale(0);
+    transition: all 0.3s;
+    background-color: rgba(4, 4, 4, 0.95);
+    border: 2px solid #ff5252;
+    box-shadow: 0 4px 15px rgba(255, 82, 82, 0.3);
+    font-weight: bold;
+    color: #333;
+    text-align: center;
+}
+
+.extra-dialog.show {
+    opacity: 1;
+    transform: scale(1);
+}
+
+/* Làm nổi bật hộp thoại khi click hụt nhiều lần */
+.dialog-box.show {
+    font-weight: 500;
+}
+
+/* Hiệu ứng rung mạnh hơn khi click hụt nhiều lần */
+@keyframes strongShake {
+    0%, 100% { transform: rotate(0deg) scale(1); }
+    20% { transform: rotate(8deg) scale(1.1); }
+    40% { transform: rotate(0deg) scale(1); }
+    60% { transform: rotate(-8deg) scale(1.1); }
+    80% { transform: rotate(0deg) scale(1); }
+}
+
+.character.strong-shake {
+    animation: strongShake 0.6s infinite;
+}
+
+/* Nhân vật hỗn loạn */
+.chaos-character {
+    opacity: 0;
+    transform: scale(0);
+    transition: all 0.4s;
+    z-index: 9;
+    font-size: 40px;
+}
+
+.chaos-character.appear {
+    opacity: 1;
+    transform: scale(1);
+}
+
+.chaos-character.disappear {
+    opacity: 0;
+    transform: scale(0) rotate(360deg);
+}
+
+/* Hiệu ứng xuất hiện mới cho hộp thoại khi click hụt nhiều lần */
+@keyframes popInDialog {
+    0% { transform: scale(0.5); opacity: 0; }
+    60% { transform: scale(1.1); opacity: 1; }
+    100% { transform: scale(1); opacity: 1; }
+}
+
+/* Áp dụng kiểu đặc biệt cho hộp thoại sau khi click hụt nhiều lần */
+.game-container.frustrated .dialog-box {
+    background-color: #fff3cd;
+    border-color: #c63939;
+    box-shadow: 0 5px 15px rgba(220, 53, 69, 0.4);
+    font-weight: bold;
+}
+
+.game-container.frustrated .dialog-box.show {
+    animation: popInDialog 0.5s forwards, shake 0.5s 0.5s;
+}
+
+/* Hiệu ứng mới cho nhân vật khi click hụt nhiều lần */
+@keyframes evilLaugh {
+    0% { transform: scale(1); }
+    20% { transform: scale(1.2) rotate(5deg); }
+    40% { transform: scale(1.2) rotate(-5deg); }
+    60% { transform: scale(1.2) rotate(5deg); }
+    80% { transform: scale(1.2) rotate(-5deg); }
+    100% { transform: scale(1); }
+}
+
+.evil-laugh {
+    animation: evilLaugh 1s;
+}
+
+/* Kiểu đặc biệt cho tin nhắn "Tôi khắp nơi..." */
+.dialog-box.special-msg {
+    background-color: #343a40;
+    color: #f8f9fa;
+    font-weight: bold;
+    border-color: #dc3545;
+    box-shadow: 0 0 15px rgba(220, 53, 69, 0.6);
+    transform: scale(1.1);
+}
+
+/* Kiểu di chuyển đặc biệt cho các chế độ chơi */
+
+/* Fast Mode: Di chuyển nhanh với trượt */
+@keyframes fastSlide {
+    0% { transform: scale(0.7) skewX(15deg); }
+    70% { transform: scale(1.2) skewX(-5deg); }
+    85% { transform: scale(1.1) skewX(3deg); }
+    100% { transform: scale(1) skewX(0); }
+}
+
+.character.fast-move {
+    animation: fastSlide 0.4s forwards;
+}
+
+/* Crazy Mode: Di chuyển xoay tròn */
+@keyframes crazyMove {
+    0% { transform: scale(0.5) rotate(0deg); }
+    30% { transform: scale(0.7) rotate(360deg); }
+    60% { transform: scale(1.3) rotate(720deg); }
+    80% { transform: scale(1.1) rotate(900deg); }
+    100% { transform: scale(1) rotate(1080deg); }
+}
+
+.character.crazy-move {
+    animation: crazyMove 0.8s cubic-bezier(0.68, -0.55, 0.27, 1.55) forwards;
+}
+
+/* Multi Mode: Di chuyển theo đường cong */
+@keyframes curveMove {
+    0% { transform: scale(0.7) translate(-30px, -20px); }
+    30% { transform: scale(0.9) translate(20px, -40px); }
+    60% { transform: scale(1.1) translate(-10px, 30px); }
+    100% { transform: scale(1) translate(0, 0); }
+}
+
+.character.curve-move {
+    animation: curveMove 0.7s cubic-bezier(0.47, 0, 0.745, 0.715) forwards;
+}
+
+/* Mercy Mode: Di chuyển chậm rãi, dễ thấy */
+@keyframes mercyMove {
+    0% { transform: scale(0.9); opacity: 0.5; }
+    60% { transform: scale(1.2); opacity: 0.8; }
+    100% { transform: scale(1); opacity: 1; }
+}
+
+.character.mercy-move {
+    animation: mercyMove 1s ease forwards;
+}
+
+/* Tin nhắn troll theo chế độ */
+.dialog-box.fast-msg {
+    border-color: #ff5722;
+    background-color: #fff8e1;
+    font-weight: bold;
+    font-style: italic;
+}
+
+.dialog-box.crazy-msg {
+    border-color: #9c27b0;
+    background-color: #f3e5f5;
+    font-weight: bold;
+    transform: rotate(-2deg);
+    font-size: 15px;
+}
+
+.dialog-box.multi-msg {
+    border-color: #2196f3;
+    background-color: #e3f2fd;
+    border-width: 3px;
+    box-shadow: 0 5px 15px rgba(33, 150, 243, 0.4);
+}
+
+/* Nhiều tin nhắn troll cho Crazy Mode */
+.crazy-dialogs-container {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: 25;
+}
+
+.crazy-dialog {
+    position: absolute;
+    background-color: rgba(255, 255, 255, 0.95);
+    border: 2px dashed #9c27b0;
+    border-radius: 10px;
+    padding: 8px 12px;
+    font-size: 14px;
+    transform: scale(0) rotate(0deg);
+    transition: all 0.3s;
+    opacity: 0;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.2);
+    transform-origin: center;
+    text-align: center;
+    font-weight: bold;
+    color: #333;
+}
+
+.crazy-dialog.show {
+    transform: scale(1) rotate(var(--rotation, 0deg));
+    opacity: 1;
+}
+
+/* Hiệu ứng nhấp nháy điên cuồng cho Crazy Mode */
+@keyframes crazyFlash {
+    0%, 100% { filter: hue-rotate(0deg); }
+    33% { filter: hue-rotate(120deg); }
+    66% { filter: hue-rotate(240deg); }
+}
+
+.character.crazy-flash {
+    animation: crazyFlash 0.5s infinite;
+}
+
+/* Khu vực thông báo trong sidebar */
+.sidebar-message {
+    background: rgba(44, 62, 80, 0.7);
+    border-radius: 8px;
+    padding: 12px 15px;
+    margin: 0 0 20px 0;
+    display: flex;
+    align-items: flex-start;
+    font-size: 14px;
+    color: #ecf0f1;
+    transition: all 0.3s;
+    transform: translateY(-10px);
+    opacity: 0;
+    overflow: hidden;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    border-left: 3px solid #3498db;
+}
+
+.sidebar-message.show {
+    transform: translateY(0);
+    opacity: 1;
+}
+
+.sidebar-message i {
+    margin-right: 10px;
+    font-size: 16px;
+    margin-top: 2px;
+}
+
+.sidebar-message #message-text {
+    flex: 1;
+    line-height: 1.4;
+    letter-spacing: 0.2px;
+}
+
+/* Các loại tin nhắn với màu sắc và border khác nhau */
+.message-info {
+    border-left-color: #3498db;
+    background: rgba(52, 152, 219, 0.15);
+}
+.message-info i {
+    color: #3498db;
+}
+
+.message-success {
+    border-left-color: #2ecc71;
+    background: rgba(46, 204, 113, 0.15);
+}
+.message-success i {
+    color: #2ecc71;
+}
+
+.message-warning {
+    border-left-color: #f39c12;
+    background: rgba(243, 156, 18, 0.15);
+}
+.message-warning i {
+    color: #f39c12;
+}
+
+.message-error {
+    border-left-color: #e74c3c;
+    background: rgba(231, 76, 60, 0.15);
+}
+.message-error i {
+    color: #e74c3c;
+}
+
+.message-troll {
+    border-left-color: #9b59b6;
+    background: rgba(155, 89, 182, 0.15);
+}
+.message-troll i {
+    color: #9b59b6;
+}
+
+.message-difficulty {
+    border-left-color: #f1c40f;
+    background: rgba(241, 196, 15, 0.15);
+}
+.message-difficulty i {
+    color: #f1c40f;
+}
+
+.message-audio {
+    border-left-color: #1abc9c;
+    background: rgba(26, 188, 156, 0.15);
+}
+.message-audio i {
+    color: #1abc9c;
+}
+
+.message-mode {
+    border-left-color: #e67e22;
+    background: rgba(230, 126, 34, 0.15);
+}
+.message-mode i {
+    color: #e67e22;
+}
+
+@keyframes messageBlink {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.03); }
+    100% { transform: scale(1); }
+}
+
+.sidebar-message.blink {
+    animation: messageBlink 0.5s ease;
+}
+
+/* Hệ thống thông báo trên màn hình game */
+.game-notification {
+    position: absolute;
+    left: 50%;
+    top: 10%;
+    transform: translateX(-50%) translateY(-100px);
+    background: rgba(0, 0, 0, 0.8);
+    border-radius: 12px;
+    padding: 12px 20px;
+    display: flex;
+    align-items: center;
+    min-width: 300px;
+    max-width: 80%;
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.5);
+    z-index: 50;
+    transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    opacity: 0;
+    color: white;
+    border-left: 4px solid #3498db;
+}
+
+.game-notification.show {
+    opacity: 1;
+    transform: translateX(-50%) translateY(0);
+}
+
+.notification-icon {
+    width: 40px;
+    height: 40px;
+    min-width: 40px;
+    border-radius: 50%;
+    background: rgba(52, 152, 219, 0.3);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-right: 15px;
+    font-size: 20px;
+}
+
+.notification-content {
+    flex: 1;
+}
+
+.notification-text {
+    font-size: 16px;
+    line-height: 1.4;
+    font-weight: 500;
+    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
+}
+
+/* Classes for different notification types */
+.notification-info {
+    border-left-color: #3498db;
+}
+.notification-info .notification-icon {
+    background: rgba(52, 152, 219, 0.3);
+    color: #3498db;
+}
+
+.notification-success {
+    border-left-color: #2ecc71;
+}
+.notification-success .notification-icon {
+    background: rgba(46, 204, 113, 0.3);
+    color: #2ecc71;
+}
+
+.notification-warning {
+    border-left-color: #f39c12;
+}
+.notification-warning .notification-icon {
+    background: rgba(243, 156, 18, 0.3);
+    color: #f39c12;
+}
+
+.notification-error {
+    border-left-color: #e74c3c;
+}
+.notification-error .notification-icon {
+    background: rgba(231, 76, 60, 0.3);
+    color: #e74c3c;
+}
+
+.notification-troll {
+    border-left-color: #9b59b6;
+}
+.notification-troll .notification-icon {
+    background: rgba(155, 89, 182, 0.3);
+    color: #9b59b6;
+}
+
+.notification-difficulty {
+    border-left-color: #f1c40f;
+}
+.notification-difficulty .notification-icon {
+    background: rgba(241, 196, 15, 0.3);
+    color: #f1c40f;
+}
+
+.notification-audio {
+    border-left-color: #1abc9c;
+}
+.notification-audio .notification-icon {
+    background: rgba(26, 188, 156, 0.3);
+    color: #1abc9c;
+}
+
+.notification-mode {
+    border-left-color: #e67e22;
+}
+.notification-mode .notification-icon {
+    background: rgba(230, 126, 34, 0.3);
+    color: #e67e22;
+}
+
+@keyframes notificationPulse {
+    0% { transform: translateX(-50%) scale(1); }
+    50% { transform: translateX(-50%) scale(1.05); }
+    100% { transform: translateX(-50%) scale(1); }
+}
+
+.game-notification.pulse {
+    animation: notificationPulse 0.5s ease;
+}
+
+/* Thông báo chiến thắng */
+.info-display {
+    margin-top: 20px;
+    background-color: rgba(0, 0, 0, 0.8);
+    border-radius: 10px;
+    padding: 15px;
+    text-align: center;
+}
+
+.victory-message {
+    color: #fff;
+    animation: victoryPulse 2s infinite;
+}
+
+.victory-message i {
+    font-size: 2rem;
+    color: gold;
+    display: block;
+    margin-bottom: 10px;
+}
+
+.victory-message h3 {
+    margin: 5px 0;
+    color: gold;
+    text-shadow: 0 0 5px rgba(255, 215, 0, 0.7);
+}
+
+.victory-message p {
+    margin: 10px 0;
+    font-size: 0.9rem;
+}
+
+@keyframes victoryPulse {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.05); }
+    100% { transform: scale(1); }
+}
+
+/* Hiệu ứng confetti rơi */
+@keyframes fall {
+    0% {
+        transform: translateY(0) rotate(0deg);
+        opacity: 1;
+    }
+    70% {
+        opacity: 1;
+    }
+    100% {
+        transform: translateY(calc(100vh - 20px)) rotate(360deg);
+        opacity: 0;
+    }
+}
+
+.confetti {
+    position: absolute;
+    width: 10px;
+    height: 10px;
+    background-color: #f44336;
+    border-radius: 2px;
+    z-index: 100;
+    pointer-events: none;
+}
+
+/* Hiệu ứng cho thông báo chiến thắng */
+.victory-message {
+    background-color: rgba(255, 255, 255, 0.95);
+    border-radius: 10px;
+    padding: 15px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+    text-align: center;
+    animation: popIn 0.5s ease-out forwards;
+    border: 2px solid #4CAF50;
+}
+
+.victory-message h3 {
+    color: #4CAF50;
+    margin-top: 5px;
+    font-size: 1.5em;
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.1);
+}
+
+.victory-message p {
+    margin: 10px 0;
+    font-size: 1.1em;
+    line-height: 1.4;
+}
+
+.victory-message .time-info {
+    display: block;
+    margin-top: 8px;
+    font-weight: bold;
+    color: #FF5722;
+}
+
+.victory-message .fas {
+    font-size: 2em;
+    color: #FFD700;
+    margin-bottom: 10px;
+    text-shadow: 0 0 5px rgba(255, 215, 0, 0.5);
+}
+
+/* Hiệu ứng cho nút chơi lại khi chiến thắng */
+.restart-btn {
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    padding: 12px 25px;
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    border-radius: 30px;
+    font-size: 1.2em;
+    cursor: pointer;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    transition: all 0.3s ease;
+    animation: bounceIn 0.6s ease-out;
+    z-index: 100;
+}
+
+.restart-btn:hover {
+    background-color: #45a049;
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
+    transform: translateX(-50%) scale(1.05);
+}
+
+/* Hiệu ứng bounce cho nút */
+@keyframes bounceIn {
+    0% {
+        opacity: 0;
+        transform: translateX(-50%) scale(0.3);
+    }
+    50% {
+        opacity: 1;
+        transform: translateX(-50%) scale(1.05);
+    }
+    70% {
+        transform: translateX(-50%) scale(0.9);
+    }
+    100% {
+        transform: translateX(-50%) scale(1);
+    }
+}
+
+/* Hiệu ứng highlight cho nút chơi lại trong sidebar */
+.function-btn.highlight {
+    animation: pulse 1.5s infinite;
+    background-color: #4CAF50;
+    color: white;
+}
+
+@keyframes pulse {
+    0% {
+        box-shadow: 0 0 0 0 rgba(76, 175, 80, 0.7);
+    }
+    70% {
+        box-shadow: 0 0 0 10px rgba(76, 175, 80, 0);
+    }
+    100% {
+        box-shadow: 0 0 0 0 rgba(76, 175, 80, 0);
+    }
+}
+
+/* Hiệu ứng cho nhân vật khi bị bắt */
+.character.caught {
+    transition: all 0.5s ease-in-out;
+    filter: brightness(1.5);
+}
+
+/* Hiệu ứng cho thời gian chơi */
+.time-info {
+    font-family: 'Courier New', monospace;
+    background-color: #f5f5f5;
+    padding: 3px 8px;
+    border-radius: 4px;
+    display: inline-block;
+    margin-top: 5px;
+}
+
+/* Hiệu ứng click chuột */
+.click-effect {
+    position: absolute;
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    transform: translate(-50%, -50%);
+    pointer-events: none;
+    z-index: 90;
+    animation: click-animation 0.5s ease-out forwards;
+}
+
+.click-effect.hit {
+    background-color: rgba(76, 175, 80, 0.7);
+    border: 2px solid #4CAF50;
+}
+
+.click-effect.miss {
+    background-color: rgba(244, 67, 54, 0.7);
+    border: 2px solid #F44336;
+}
+
+@keyframes click-animation {
+    0% {
+        transform: translate(-50%, -50%) scale(0.3);
+        opacity: 1;
+    }
+    100% {
+        transform: translate(-50%, -50%) scale(1.5);
+        opacity: 0;
+    }
+}
+
+/* Thông báo gần trúng */
+.near-miss-message {
+    position: absolute;
+    transform: translate(-50%, -50%);
+    background-color: rgba(255, 152, 0, 0.9);
+    color: white;
+    padding: 5px 10px;
+    border-radius: 15px;
+    font-size: 14px;
+    font-weight: bold;
+    pointer-events: none;
+    z-index: 95;
+    animation: float-up 1s ease-out forwards;
+    white-space: nowrap;
+    text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.3);
+}
+
+@keyframes float-up {
+    0% {
+        transform: translate(-50%, -50%) scale(0.8);
+        opacity: 0;
+    }
+    20% {
+        transform: translate(-50%, -50%) scale(1.1);
+        opacity: 1;
+    }
+    80% {
+        opacity: 1;
+    }
+    100% {
+        transform: translate(-50%, -80%) scale(1);
+        opacity: 0;
+    }
+} 

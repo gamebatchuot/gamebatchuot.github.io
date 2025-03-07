@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Game Bắt Chuột Mini</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <!-- Màn hình game chính kết hợp các chức năng -->
+    <div id="game-container" class="game-container">
+        <!-- Khu vực chức năng (sidebar) -->
+        <div class="game-sidebar">
+            <div class="game-logo">
+                <h3>Game Bắt Chuột</h3>
+            </div>
+            
+            <!-- Chọn chế độ chơi -->
+            <div class="game-modes-panel">
+                <h4>Chế độ chơi</h4>
+                <div class="mode-buttons">
+                    <button id="mode-normal" class="mode-btn selected" data-mode="normal">
+                        <i class="fas fa-hand-pointer"></i>
+                        <span>Bình thường</span>
+                    </button>
+                    
+                    <button id="mode-fast" class="mode-btn" data-mode="fast">
+                        <i class="fas fa-bolt"></i>
+                        <span>Siêu tốc</span>
+                    </button>
+                    
+                    <button id="mode-crazy" class="mode-btn" data-mode="crazy">
+                        <i class="fas fa-dizzy"></i>
+                        <span>Điên cuồng</span>
+                    </button>
+                    
+                    <button id="mode-multi" class="mode-btn" data-mode="multi">
+                        <i class="fas fa-users"></i>
+                        <span>Đa nhân vật</span>
+                    </button>
+                </div>
+            </div>
+            
+            <!-- Các nút chức năng -->
+            <div class="function-buttons">
+                <button id="help-btn" class="function-btn">
+                    <i class="fas fa-question-circle"></i>
+                    <span>Hướng dẫn</span>
+                </button>
+                
+                <button id="music-toggle" class="function-btn">
+                    <i class="fas fa-volume-up"></i>
+                    <span>Âm thanh</span>
+                </button>
+                
+                <button id="restart-game" class="function-btn">
+                    <i class="fas fa-redo"></i>
+                    <span>Chơi lại</span>
+                </button>
+            </div>
+            
+            <!-- Thống kê -->
+            <div class="game-stats-panel">
+                <div id="game-stats" class="game-stats-detail">
+                    <i class="fas fa-mouse-pointer"></i>
+                    <span id="miss-count">0</span> lần click hụt
+                </div>
+            </div>
+            
+            <!-- Thông báo chiến thắng -->
+            <div class="info-display" style="display: none;">
+                <div class="victory-message" style="display: none;">
+                    <i class="fas fa-trophy"></i>
+                    <h3>Bạn Đã Thắng!</h3>
+                    <p id="victoryMessage"></p>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Khu vực chơi game -->
+        <div class="gameplay-area">
+            <div id="character" class="character">😜</div>
+            <div id="dialog-box" class="dialog-box hidden"></div>
+            
+            <!-- Nút reset trong khu vực chơi game (hiển thị khi kết thúc) -->
+            <button id="restart-btn" class="restart-btn hidden">Chơi lại</button>
+            
+            <!-- Hiển thị meme -->
+            <div id="meme-container" class="meme-container hidden">
+                <img id="meme-image" src="" alt="Meme">
+            </div>
+            
+            <!-- Hệ thống thông báo nổi bật trong game -->
+            <div id="game-notification" class="game-notification hidden">
+                <div class="notification-icon"></div>
+                <div class="notification-content">
+                    <div id="notification-text" class="notification-text"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Popup hướng dẫn chơi -->
+    <div id="help-popup" class="popup-overlay hidden">
+        <div class="popup-content">
+            <div class="popup-header">
+                <h2>Hướng Dẫn Chơi</h2>
+                <button id="close-help" class="close-btn"><i class="fas fa-times"></i></button>
+            </div>
+            <div class="popup-body">
+                <ul class="instructions-list">
+                    <li>🎮 Di chuyển chuột để cố gắng bắt được nhân vật 😜</li>
+                    <li>🏃‍♂️ Nhân vật sẽ tự động chạy trốn khi chuột đến gần</li>
+                    <li>🎯 Click chuột để bắt. Nếu bắt trúng, bạn thắng!</li>
+                    <li>😂 Nếu bạn click hụt quá nhiều lần, game sẽ hiển thị meme trêu chọc</li>
+                    <li>🔊 Bạn có thể bật/tắt âm thanh bằng nút ở góc trên bên trái</li>
+                    <li>🎲 Chọn các chế độ chơi khác nhau để trải nghiệm mới</li>
+                </ul>
+                
+                <div class="modes-info">
+                    <h3>Các chế độ chơi:</h3>
+                    <div class="mode-info-item">
+                        <h4><i class="fas fa-hand-pointer"></i> Bình thường</h4>
+                        <p>Chế độ chơi cơ bản, tốc độ vừa phải</p>
+                    </div>
+                    <div class="mode-info-item">
+                        <h4><i class="fas fa-bolt"></i> Siêu tốc</h4>
+                        <p>Nhân vật di chuyển nhanh hơn, khó bắt hơn</p>
+                    </div>
+                    <div class="mode-info-item">
+                        <h4><i class="fas fa-dizzy"></i> Điên cuồng</h4>
+                        <p>Nhiều meme, nhân vật chuyển động bất ngờ</p>
+                    </div>
+                    <div class="mode-info-item">
+                        <h4><i class="fas fa-users"></i> Đa nhân vật</h4>
+                        <p>2-3 nhân vật cùng lúc, thử thách hơn!</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Âm thanh -->
+    <!-- Âm thanh nền -->
+    <audio id="background-music" loop>
+        <source src="sounds/background.mp3" type="audio/mpeg">
+    </audio>
+    
+    <!-- Âm thanh di chuyển - sử dụng nhiều âm thanh khác nhau -->
+    <audio id="move-sound-1" preload="auto">
+        <source src="sounds/move.mp3" type="audio/mpeg">
+    </audio>
+    <audio id="move-sound-2" preload="auto">
+        <source src="sounds/move1.mp3" type="audio/mpeg">
+    </audio>
+    <audio id="move-sound-3" preload="auto">
+        <source src="sounds/move2.mp3" type="audio/mpeg">
+    </audio>
+    
+    <!-- Âm thanh miss - sử dụng nhiều âm thanh khác nhau -->
+    <audio id="miss-sound-1" preload="auto">
+        <source src="sounds/miss.mp3" type="audio/mpeg">
+    </audio>
+    <audio id="miss-sound-2" preload="auto">
+        <source src="sounds/miss2.mp3" type="audio/mpeg">
+    </audio>
+    <audio id="miss-sound-3" preload="auto">
+        <source src="sounds/miss3.mp3" type="audio/mpeg">
+    </audio>
+    <audio id="miss-sound-4" preload="auto">
+        <source src="sounds/miss4.mp3" type="audio/mpeg">
+    </audio>
+    <audio id="miss-sound-5" preload="auto">
+        <source src="sounds/miss5.mp3" type="audio/mpeg">
+    </audio>
+    <audio id="miss-sound-6" preload="auto">
+        <source src="sounds/miss6.mp3" type="audio/mpeg">
+    </audio>
+    
+    <audio id="catch-sound" preload="auto">
+        <source src="sounds/catch.mp3" type="audio/mpeg">
+    </audio>
+    
+    <!-- Âm thanh chiến thắng -->
+    <audio id="victorySound" preload="auto">
+        <source src="sounds/victory.mp3" type="audio/mpeg">
+    </audio>
+
+    <script src="script.js"></script>
+</body>
+</html> 
